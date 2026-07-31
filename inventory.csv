@@ -1,0 +1,6 @@
+product,supplier,current_stock,safety_stock,daily_usage
+Display Panel,S001,40,100,25
+Connector Module,S002,300,150,20
+Circuit Board,S003,180,120,15
+Battery Cell,S004,15,80,30
+Sensor Unit,S005,220,100,18

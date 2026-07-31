@@ -1,0 +1,5 @@
+streamlit>=1.32
+plotly>=5.18
+openai>=1.30
+flask>=3.0
+flask-cors>=4.0

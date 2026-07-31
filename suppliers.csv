@@ -1,0 +1,6 @@
+supplier_id,name,quality_score,on_time_rate,avg_delivery_days,price_index
+S001,ABC Electronics,72,68,9,1.05
+S002,XYZ Components,94,96,4,1.10
+S003,Global Parts Co,88,90,5,0.98
+S004,Prime Supplies,61,58,11,0.95
+S005,Nova Manufacturing,90,93,5,1.02

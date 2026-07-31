@@ -1,0 +1,647 @@
+[
+  {
+    "pr_id": "PR5001",
+    "created_at": "2026-07-30T15:17:35",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5002",
+    "created_at": "2026-07-30T15:17:35",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5003",
+    "created_at": "2026-07-30T15:24:12",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5004",
+    "created_at": "2026-07-30T15:24:12",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5005",
+    "created_at": "2026-07-30T15:24:36",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5006",
+    "created_at": "2026-07-30T15:24:36",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5007",
+    "created_at": "2026-08-01T00:15:57",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5008",
+    "created_at": "2026-08-01T00:15:57",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5009",
+    "created_at": "2026-08-01T00:16:22",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5010",
+    "created_at": "2026-08-01T00:16:22",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5011",
+    "created_at": "2026-08-01T00:17:32",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5012",
+    "created_at": "2026-08-01T00:17:32",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5013",
+    "created_at": "2026-08-01T00:18:08",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5014",
+    "created_at": "2026-08-01T00:18:08",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5015",
+    "created_at": "2026-08-01T00:18:37",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5016",
+    "created_at": "2026-08-01T00:18:37",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5017",
+    "created_at": "2026-08-01T00:19:14",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5018",
+    "created_at": "2026-08-01T00:19:14",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5019",
+    "created_at": "2026-08-01T00:19:15",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5020",
+    "created_at": "2026-08-01T00:19:15",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5021",
+    "created_at": "2026-08-01T00:19:16",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5022",
+    "created_at": "2026-08-01T00:19:16",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5023",
+    "created_at": "2026-08-01T00:19:16",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5024",
+    "created_at": "2026-08-01T00:19:16",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5025",
+    "created_at": "2026-08-01T00:19:17",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5026",
+    "created_at": "2026-08-01T00:19:17",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5027",
+    "created_at": "2026-08-01T00:19:35",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5028",
+    "created_at": "2026-08-01T00:19:35",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5029",
+    "created_at": "2026-08-01T00:19:41",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5030",
+    "created_at": "2026-08-01T00:19:41",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5031",
+    "created_at": "2026-08-01T00:20:24",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5032",
+    "created_at": "2026-08-01T00:20:24",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5033",
+    "created_at": "2026-08-01T00:27:14",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5034",
+    "created_at": "2026-08-01T00:27:14",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5035",
+    "created_at": "2026-08-01T00:31:39",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5036",
+    "created_at": "2026-08-01T00:31:39",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5037",
+    "created_at": "2026-08-01T00:35:29",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5038",
+    "created_at": "2026-08-01T00:35:29",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5039",
+    "created_at": "2026-08-01T00:35:42",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5040",
+    "created_at": "2026-08-01T00:35:42",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5041",
+    "created_at": "2026-08-01T00:36:00",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5042",
+    "created_at": "2026-08-01T00:36:00",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5043",
+    "created_at": "2026-08-01T00:36:06",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5044",
+    "created_at": "2026-08-01T00:36:06",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5045",
+    "created_at": "2026-08-01T00:36:43",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5046",
+    "created_at": "2026-08-01T00:36:43",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5047",
+    "created_at": "2026-08-01T00:37:24",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5048",
+    "created_at": "2026-08-01T00:37:24",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5049",
+    "created_at": "2026-08-01T00:43:56",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5050",
+    "created_at": "2026-08-01T00:43:56",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5051",
+    "created_at": "2026-08-01T00:49:10",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5052",
+    "created_at": "2026-08-01T00:49:10",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5053",
+    "created_at": "2026-08-01T00:49:22",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "APPROVED",
+    "approved_at": "2026-08-01T00:49:48"
+  },
+  {
+    "pr_id": "PR5054",
+    "created_at": "2026-08-01T00:49:22",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5055",
+    "created_at": "2026-08-01T00:52:58",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "APPROVED",
+    "approved_at": "2026-08-01T00:53:33"
+  },
+  {
+    "pr_id": "PR5056",
+    "created_at": "2026-08-01T00:52:58",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "APPROVED",
+    "approved_at": "2026-08-01T00:53:35"
+  },
+  {
+    "pr_id": "PR5057",
+    "created_at": "2026-08-01T00:53:48",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5058",
+    "created_at": "2026-08-01T00:53:48",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5059",
+    "created_at": "2026-08-01T00:56:10",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5060",
+    "created_at": "2026-08-01T00:56:10",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5061",
+    "created_at": "2026-08-01T00:59:13",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "APPROVED",
+    "approved_at": "2026-08-01T01:00:25"
+  },
+  {
+    "pr_id": "PR5062",
+    "created_at": "2026-08-01T00:59:13",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "APPROVED",
+    "approved_at": "2026-08-01T01:00:27"
+  },
+  {
+    "pr_id": "PR5063",
+    "created_at": "2026-08-01T01:03:18",
+    "original_supplier": "Prime Supplies",
+    "backup_supplier": "XYZ Components",
+    "product": "Battery Cell",
+    "severity": "HIGH",
+    "estimated_impact_inr": 68250,
+    "status": "PENDING_APPROVAL"
+  },
+  {
+    "pr_id": "PR5064",
+    "created_at": "2026-08-01T01:03:18",
+    "original_supplier": "ABC Electronics",
+    "backup_supplier": "XYZ Components",
+    "product": "Display Panel",
+    "severity": "MEDIUM",
+    "estimated_impact_inr": 63000,
+    "status": "PENDING_APPROVAL"
+  }
+]

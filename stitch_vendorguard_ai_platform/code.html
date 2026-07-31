@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VendorGuard AI - Executive Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface-container-highest":"#2d3449","surface-dim":"#0b1326","surface-container":"#171f33",
+        "surface-container-high":"#222a3d","error":"#ffb4ab","background":"#0b1326",
+        "surface-container-lowest":"#060e20","surface":"#0b1326","on-surface":"#dae2fd",
+        "on-surface-variant":"#bbcabf","outline":"#86948a","outline-variant":"#3c4a42",
+        "surface-bright":"#31394d","primary":"#4edea3","on-primary":"#003824",
+        "primary-container":"#10b981","secondary":"#adc6ff","secondary-container":"#0566d9",
+        "on-secondary-container":"#e6ecff","on-secondary":"#002e6a","tertiary":"#ffb3ad",
+        "surface-variant":"#2d3449","on-error":"#690005","error-container":"#93000a",
+        "on-error-container":"#ffdad6","surface-container-low":"#131b2e",
+        "on-primary-container":"#00422b","tertiary-container":"#ff7a73",
+        "primary-fixed":"#6ffbbe","inverse-primary":"#006c49",
+      },
+      spacing: { "container-padding":"24px","stack-lg":"32px","stack-sm":"8px","stack-md":"16px","gutter":"16px" },
+      fontFamily: { "label-md":["Inter"],"label-sm":["Inter"],"body-md":["Inter"],"body-lg":["Inter"],"headline-md":["Inter"],"code-md":["JetBrains Mono"],"headline-sm":["Inter"],"headline-lg":["Inter"] },
+      fontSize: {
+        "label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"600"}],
+        "label-sm":["11px",{"lineHeight":"14px","fontWeight":"500"}],
+        "body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],
+        "body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],
+        "headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],
+        "code-md":["13px",{"lineHeight":"20px","fontWeight":"400"}],
+        "headline-sm":["20px",{"lineHeight":"28px","fontWeight":"600"}],
+        "headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],
+      },
+      borderRadius: { DEFAULT:"0.125rem", lg:"0.25rem", xl:"0.5rem", full:"0.75rem" },
+    },
+  },
+}
+</script>
+<style>
+body { background:#0b1326; color:#dae2fd; font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; }
+.material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+.glass-card { background:rgba(30,41,59,0.7); backdrop-filter:blur(12px); border:1px solid #334155; }
+.custom-scrollbar::-webkit-scrollbar { width:4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background:#0f172a; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background:#334155; border-radius:2px; }
+.spinner { width:18px;height:18px;border:2px solid rgba(78,222,163,0.3);border-top-color:#4edea3;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;vertical-align:middle; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.fade-in { animation:fadeIn .4s ease-out; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+.skeleton { background:linear-gradient(90deg,#1e293b 25%,#334155 50%,#1e293b 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:4px; }
+@keyframes shimmer { 0%{background-position:200% 0}100%{background-position:-200% 0} }
+.page-section { display:none; }
+.page-section.active { display:block; }
+.nav-link { cursor:pointer; }
+.nav-link.active-nav { background:#0566d9 !important; color:#e6ecff !important; font-weight:700 !important; }
+.nav-link:not(.active-nav):hover { background:#222a3d; }
+.bento-grid { display:grid;grid-template-columns:repeat(12,1fr);gap:16px; }
+.toast { position:fixed;top:80px;right:24px;z-index:200;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:600;animation:slideIn .3s ease-out;pointer-events:auto; }
+@keyframes slideIn { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
+</style>
+</head>
+<body class="flex min-h-screen">
+<!-- ══════════ SIDEBAR ══════════ -->
+<aside class="hidden md:flex flex-col py-stack-md px-stack-sm z-[60] fixed left-0 top-0 h-full w-[260px] bg-surface-container border-r border-outline-variant transition-all">
+<div class="px-4 mb-8 flex items-center gap-3">
+<img alt="Logo" class="w-8 h-8 rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnv9zx176-XNveQV9pLVaBLJuk2L-HUKF5IqHJLUaV2NTGnA2ktlo_QfHkMLJwfRDKqI95zD7j8WIZdXg4OP0xMtRwazkBiGKE_zd1ekTiqwuBla1-N5pv_XDZIfJqoK-0dZXZKSnL_hfVCZyOfeozQZn6gsuXIkMMy6zqlntLTveaNYr912_ZEQOQPWZarN0WOzvcRn1ctywtZg2Wf3lJWKo3gc4_PYIVLcY84Bis51gQlzRMr9aYhbJOqNwaEh8PVKs1QF1S_s2T"/>
+<span class="font-headline-sm text-headline-sm font-bold text-primary">VendorGuard AI</span>
+</div>
+<nav class="flex-1 space-y-1" id="sidebar-nav">
+<a class="nav-link active-nav flex items-center gap-3 px-4 py-3 rounded-lg transition-all" data-page="dashboard">
+<span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="nav-link flex items-center gap-3 px-4 py-3 text-on-surface-variant rounded-lg transition-all" data-page="risk-monitor">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-md text-label-md">Risk Monitor</span>
+</a>
+<a class="nav-link flex items-center gap-3 px-4 py-3 text-on-surface-variant rounded-lg transition-all" data-page="reasoning-studio">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-label-md text-label-md">Reasoning Studio</span>
+</a>
+<a class="nav-link flex items-center gap-3 px-4 py-3 text-on-surface-variant rounded-lg transition-all" data-page="procurement-hub">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Procurement Hub</span>
+</a>
+<a class="nav-link flex items-center gap-3 px-4 py-3 text-on-surface-variant rounded-lg transition-all" data-page="telemetry-logs">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-label-md text-label-md">Telemetry Logs</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-4 px-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Security Analyst</span>
+<span class="text-[10px] text-on-surface-variant" id="sidebar-status">Connecting...</span>
+</div>
+</div>
+</div>
+</aside>
+
+<!-- ══════════ MAIN CONTENT ══════════ -->
+<main class="flex-1 md:ml-[260px] pb-20 md:pb-0 relative overflow-x-hidden">
+<!-- Top Bar -->
+<header class="fixed top-0 w-full md:w-[calc(100%-260px)] h-16 flex items-center justify-between px-container-padding z-50 bg-surface border-b border-outline-variant transition-colors">
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center gap-3 bg-on-primary-container/10 px-3 py-1 rounded-full border border-primary/20">
+<div id="status-dot" class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span id="status-text" class="font-label-sm text-label-sm text-primary uppercase tracking-wider">⏳ Connecting...</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button onclick="exportReport()" class="bg-surface-container-high text-on-surface px-4 py-2 rounded-lg border border-outline-variant font-label-md text-label-md hover:bg-surface-container-highest transition-colors flex items-center gap-2" id="btn-export">
+<span class="material-symbols-outlined text-sm">download</span> Export Report
+</button>
+<button id="btn-run" onclick="runPipeline()" class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center gap-2">
+<span id="run-spinner" class="hidden"><span class="spinner"></span></span>
+<span id="run-text">▶ Run Pipeline</span>
+</button>
+</div>
+</header>
+
+<div class="mt-16 p-container-padding">
+
+<!-- ═══════════════════════════════════════════
+     PAGE 1: DASHBOARD
+     ═══════════════════════════════════════════ -->
+<div id="page-dashboard" class="page-section active space-y-stack-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Executive Command Center</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Real-time oversight across all suppliers. <span id="last-updated" class="text-primary text-[11px] font-code-md"></span></p>
+</div>
+
+<!-- KPI Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- KPI 1: Active Incidents -->
+<div class="glass-card p-4 rounded-xl">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Active Incidents</span>
+<span class="material-symbols-outlined text-primary">warning</span>
+</div>
+<div id="kpi-incidents" class="flex flex-wrap gap-2 items-center"><div class="skeleton h-5 w-full"></div></div>
+</div>
+<!-- KPI 2: Financial Exposure -->
+<div class="glass-card p-4 rounded-xl relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-error/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Financial Exposure</span>
+<span class="material-symbols-outlined text-error">trending_up</span>
+</div>
+<div id="kpi-exposure" class="text-3xl font-bold text-on-surface"><div class="skeleton h-9 w-32"></div></div>
+<div id="kpi-exposure-sub" class="text-[11px] text-error mt-1"></div>
+</div>
+<!-- KPI 3: SLA Performance -->
+<div class="glass-card p-4 rounded-xl">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">On-Time Delivery SLA</span>
+<span class="material-symbols-outlined text-tertiary">speed</span>
+</div>
+<div id="kpi-sla" class="text-3xl font-bold text-on-surface"><div class="skeleton h-9 w-20"></div></div>
+<div id="kpi-sla-sub" class="text-[11px] text-tertiary mt-1"></div>
+</div>
+<!-- KPI 4: Autonomous POs -->
+<div class="glass-card p-4 rounded-xl border-primary/30 bg-primary/5">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-primary uppercase tracking-wider">Autonomous POs</span>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings:'FILL' 1;">bolt</span>
+</div>
+<div id="kpi-pos" class="text-2xl font-bold text-primary"><div class="skeleton h-8 w-28"></div></div>
+<div id="kpi-pos-sub" class="text-sm text-on-surface font-semibold"></div>
+<div class="text-[10px] text-on-surface-variant mt-1">CoCo Agent Optimizations</div>
+</div>
+</div>
+
+<!-- SLA Chart + Critical Action -->
+<div class="bento-grid">
+<!-- SLA Chart (all suppliers) -->
+<div class="col-span-12 lg:col-span-8 glass-card rounded-xl p-stack-md flex flex-col min-h-[400px]">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Supplier SLA Performance</h3>
+<div class="flex gap-4 items-center">
+<span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant"><div class="w-2 h-2 rounded-full bg-primary"></div> Healthy</span>
+<span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant"><div class="w-2 h-2 rounded-full bg-tertiary"></div> Warning</span>
+<span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant"><div class="w-2 h-2 rounded-full bg-error"></div> Critical</span>
+<span class="flex items-center gap-1 text-label-sm font-label-sm text-on-surface-variant">── Target (90%)</span>
+</div>
+</div>
+<div class="flex-1 w-full h-full min-h-[250px] relative mt-4">
+<canvas id="slaChart"></canvas>
+</div>
+</div>
+<!-- Critical Action -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<div id="critical-card" class="flex-1 bg-surface-container border-l-4 border-error p-stack-md rounded-xl flex flex-col justify-between shadow-lg">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-lg bg-error/15 flex items-center justify-center"><span class="material-symbols-outlined text-error">priority_high</span></div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Critical Action</h4>
+<p id="critical-name" class="font-label-sm text-label-sm text-error uppercase">Loading...</p>
+</div>
+</div>
+<div class="p-3 bg-surface-dim rounded border border-outline-variant mb-4">
+<p id="critical-desc" class="font-body-md text-body-md text-on-surface-variant">Connecting to pipeline...</p>
+</div>
+<button onclick="navigateTo('risk-monitor')" class="w-full py-3 bg-error text-white font-label-md text-label-md rounded-lg hover:brightness-110 transition-all flex items-center justify-center gap-2 group">
+Investigate Impact <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+<!-- AI Console -->
+<div class="h-44 bg-[#020617] rounded-xl p-4 border border-outline-variant overflow-hidden font-code-md text-code-md">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+<span class="text-primary text-[10px]">CORTEX_LOG: AGENT_PIPELINE</span>
+</div>
+<div id="ai-console" class="space-y-1 text-[#10B981]/80 custom-scrollbar overflow-y-auto h-28">
+<p>&gt; Initializing pipeline...</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ALL Suppliers Table -->
+<div class="glass-card rounded-xl overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h3 class="font-label-md text-label-md text-on-surface uppercase tracking-widest">All Suppliers — Risk Overview</h3>
+<span id="table-ts" class="text-[11px] text-on-surface-variant">Loading...</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container text-on-surface-variant font-label-md text-label-md uppercase">
+<tr>
+<th class="px-6 py-3 font-semibold">Vendor</th>
+<th class="px-6 py-3 font-semibold">Product</th>
+<th class="px-6 py-3 font-semibold">Quality</th>
+<th class="px-6 py-3 font-semibold">On-Time SLA</th>
+<th class="px-6 py-3 font-semibold">Risk</th>
+<th class="px-6 py-3 font-semibold">Action</th>
+<th class="px-6 py-3 font-semibold text-right">Impact (₹)</th>
+</tr>
+</thead>
+<tbody id="supplier-table" class="text-body-md text-on-surface">
+<tr><td class="px-6 py-6 text-center text-on-surface-variant" colspan="7"><span class="spinner"></span> Loading...</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 2: RISK MONITOR
+     ═══════════════════════════════════════════ -->
+<div id="page-risk-monitor" class="page-section space-y-stack-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Risk Monitor</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Detailed risk breakdown per supplier with reasoning chains and impact analysis.</p>
+</div>
+<div id="risk-cards" class="space-y-4">
+<div class="glass-card p-6 rounded-xl text-center text-on-surface-variant"><span class="spinner"></span> Loading risk data...</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 3: REASONING STUDIO
+     ═══════════════════════════════════════════ -->
+<div id="page-reasoning-studio" class="page-section space-y-stack-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Reasoning Studio</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Trace the AI agent reasoning chain step-by-step for each flagged supplier.</p>
+</div>
+<div id="reasoning-content" class="space-y-4">
+<div class="glass-card p-6 rounded-xl text-center text-on-surface-variant"><span class="spinner"></span> Loading reasoning chains...</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 4: PROCUREMENT HUB
+     ═══════════════════════════════════════════ -->
+<div id="page-procurement-hub" class="page-section space-y-stack-lg">
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Procurement Hub</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Purchase requests, approvals, and backup supplier routing.</p>
+</div>
+</div>
+<div id="procurement-content" class="space-y-4">
+<div class="glass-card p-6 rounded-xl text-center text-on-surface-variant"><span class="spinner"></span> Loading procurement data...</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PAGE 5: TELEMETRY LOGS
+     ═══════════════════════════════════════════ -->
+<div id="page-telemetry-logs" class="page-section space-y-stack-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Telemetry Logs</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Full delivery timeline, purchase order history, and system event logs.</p>
+</div>
+<div id="telemetry-content" class="space-y-4">
+<div class="glass-card p-6 rounded-xl text-center text-on-surface-variant"><span class="spinner"></span> Loading telemetry data...</div>
+</div>
+</div>
+
+</div><!-- end mt-16 -->
+</main>
+
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 h-16 bg-surface-container-lowest border-t border-outline-variant rounded-t-xl" id="mobile-nav">
+<a class="flex flex-col items-center p-2 text-primary" data-page="dashboard"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">dashboard</span></a>
+<a class="flex flex-col items-center p-2 text-on-surface-variant" data-page="risk-monitor"><span class="material-symbols-outlined">security</span></a>
+<a class="flex flex-col items-center p-2 text-on-surface-variant" data-page="reasoning-studio"><span class="material-symbols-outlined">psychology</span></a>
+<a class="flex flex-col items-center p-2 text-on-surface-variant" data-page="procurement-hub"><span class="material-symbols-outlined">shopping_cart</span></a>
+<a class="flex flex-col items-center p-2 text-on-surface-variant" data-page="telemetry-logs"><span class="material-symbols-outlined">terminal</span></a>
+</nav>
+
+<!-- FAB -->
+<button onclick="runPipeline()" class="fixed bottom-20 md:bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center z-[70] hover:scale-110 active:scale-95 transition-all group">
+<span class="material-symbols-outlined">smart_toy</span>
+<div class="absolute right-16 bg-surface-container-highest text-on-surface px-3 py-1 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Run Pipeline</div>
+</button>
+
+<!-- Toast container -->
+<div id="toast-container"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     JAVASCRIPT — Live data connection + all page rendering
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+const API = window.location.origin;
+let isLoading = false;
+let cachedData = null;
+let slaChartInstance = null; // Chart.js instance
+
+// ── Utilities ────────────────────────────────────────────────────
+function fmt(v) {
+    if (!v && v !== 0) return '—';
+    if (v >= 100000) return '₹' + (v / 100000).toFixed(1) + ' Lakhs';
+    if (v >= 1000) return '₹' + (v / 1000).toFixed(1) + 'K';
+    return '₹' + v.toLocaleString('en-IN');
+}
+
+function badge(sev) {
+    const m = {
+        HIGH:    { bg:'rgba(255,180,171,0.15)', c:'#ffb4ab', icon:'🔴' },
+        MEDIUM:  { bg:'rgba(255,179,173,0.15)', c:'#ffb3ad', icon:'🟡' },
+        LOW:     { bg:'rgba(78,222,163,0.15)',   c:'#4edea3', icon:'🟠' },
+        HEALTHY: { bg:'rgba(78,222,163,0.15)',   c:'#4edea3', icon:'🟢' },
+    };
+    const s = m[sev] || m.HEALTHY;
+    return `<span class="px-2 py-1 rounded text-[11px] font-bold" style="background:${s.bg};color:${s.c}">${sev} ${s.icon}</span>`;
+}
+
+function actionLabel(a) {
+    return { EMERGENCY_PROCUREMENT:'Emergency PR', FLAG_FOR_REVIEW:'Under Review', MONITOR_ONLY:'Monitoring', NO_ISSUES:'No Issues', PURCHASE_REQUEST_CREATED:'PR Created', FLAGGED_WITH_BACKUP_READY:'Backup Ready', NONE:'None' }[a] || a || '—';
+}
+
+function toast(msg, type='success') {
+    const c = document.getElementById('toast-container');
+    const d = document.createElement('div');
+    d.className = 'toast';
+    d.style.background = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#0566d9';
+    d.style.color = '#fff';
+    d.textContent = msg;
+    c.appendChild(d);
+    setTimeout(() => { d.style.opacity = '0'; setTimeout(() => d.remove(), 300); }, 3000);
+}
+
+function log(t) {
+    const c = document.getElementById('ai-console');
+    const p = document.createElement('p');
+    p.textContent = '> ' + t;
+    p.classList.add('fade-in');
+    c.appendChild(p);
+    c.scrollTop = c.scrollHeight;
+}
+
+// ── Navigation ───────────────────────────────────────────────────
+function navigateTo(page) {
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    document.querySelectorAll('#sidebar-nav .nav-link').forEach(l => {
+        l.classList.remove('active-nav');
+        l.classList.add('text-on-surface-variant');
+        if (l.dataset.page === page) {
+            l.classList.add('active-nav');
+            l.classList.remove('text-on-surface-variant');
+        }
+    });
+    // Mobile nav
+    document.querySelectorAll('#mobile-nav a').forEach(l => {
+        l.classList.remove('text-primary');
+        l.classList.add('text-on-surface-variant');
+        if (l.dataset.page === page) {
+            l.classList.add('text-primary');
+            l.classList.remove('text-on-surface-variant');
+        }
+    });
+    if (cachedData) renderPage(page, cachedData);
+    window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('[data-page]').forEach(el => {
+    el.addEventListener('click', () => navigateTo(el.dataset.page));
+});
+
+// ── Page Renderers ───────────────────────────────────────────────
+
+function renderDashboard(d) {
+    const s = d.summary;
+    const all = d.suppliers;
+
+    // KPI 1 — Active Incidents (fixed: shows all categories)
+    document.getElementById('kpi-incidents').innerHTML = `
+        ${s.high > 0 ? `<span class="bg-error/15 text-error px-2 py-0.5 rounded text-[11px] font-bold">${s.high} HIGH 🔴</span>` : ''}
+        ${s.medium > 0 ? `<span class="bg-tertiary/15 text-tertiary px-2 py-0.5 rounded text-[11px] font-bold">${s.medium} MED 🟡</span>` : ''}
+        ${s.low > 0 ? `<span class="bg-[rgba(78,222,163,0.15)] text-primary px-2 py-0.5 rounded text-[11px] font-bold">${s.low} LOW 🟠</span>` : ''}
+        <span class="bg-primary/15 text-primary px-2 py-0.5 rounded text-[11px] font-bold">${s.healthy} HEALTHY 🟢</span>
+    `;
+
+    // KPI 2 — Financial Exposure
+    document.getElementById('kpi-exposure').innerHTML = `<span class="fade-in">${fmt(s.total_impact)}</span>`;
+    document.getElementById('kpi-exposure-sub').innerHTML = s.total_impact > 0
+        ? `<span class="material-symbols-outlined text-sm">arrow_upward</span> Active shortfall risk`
+        : `<span class="material-symbols-outlined text-sm">check_circle</span> No exposure`;
+
+    // KPI 3 — SLA (avg across ALL suppliers)
+    document.getElementById('kpi-sla').innerHTML = `<span class="fade-in">${s.avg_on_time}%</span>`;
+    document.getElementById('kpi-sla-sub').innerHTML = `<span class="material-symbols-outlined text-sm">${s.avg_on_time < 90 ? 'arrow_downward' : 'arrow_upward'}</span> Average across ${d.supplier_count} suppliers`;
+
+    // KPI 4 — POs
+    document.getElementById('kpi-pos').innerHTML = `<span class="fade-in">${s.pr_count} Orders</span>`;
+    document.getElementById('kpi-pos-sub').textContent = s.total_impact > 0 ? `${fmt(s.total_impact)} Mitigated` : 'No active orders';
+
+    // SLA Chart — ALL suppliers
+    const ctx = document.getElementById('slaChart').getContext('2d');
+    if (slaChartInstance) {
+        slaChartInstance.destroy();
+    }
+    
+    slaChartInstance = new Chart(ctx, {
+        data: {
+            labels: all.map(s => s.supplier_name.replace(/\s+(Industries|Corp|Ltd|LLC|Electronics|Dynamics|Systems|Components|Manufacturing|Supplies|Parts|Co)/gi, '')),
+            datasets: [
+                {
+                    type: 'line',
+                    label: 'Target (90%)',
+                    data: all.map(() => 90),
+                    borderColor: '#94a3b8',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    pointRadius: 0,
+                    fill: false,
+                    tension: 0
+                },
+                {
+                    type: 'bar',
+                    label: 'On-Time SLA (%)',
+                    data: all.map(s => s.on_time_rate || 0),
+                    backgroundColor: all.map(s => s.severity === 'HIGH' ? '#f87171' : s.severity === 'MEDIUM' ? '#fbbf24' : '#10b981'),
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                    ticks: { color: '#94a3b8', font: { family: 'JetBrains Mono', size: 10 } }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#94a3b8', font: { family: 'Inter', size: 11 } }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: '#1e293b',
+                    titleFont: { family: 'Inter', size: 13 },
+                    bodyFont: { family: 'JetBrains Mono', size: 12 },
+                    padding: 10,
+                    cornerRadius: 8,
+                    displayColors: false
+                }
+            }
+        }
+    });
+
+    // Critical Action Card
+    const high = all.find(s => s.severity === 'HIGH');
+    if (high) {
+        document.getElementById('critical-name').textContent = high.supplier_name;
+        document.getElementById('critical-desc').textContent = high.llm_explanation || high.decision_explanation || `Quality: ${high.quality_score}%, On-Time: ${high.on_time_rate}%, Delay: ${high.max_delay_days}d`;
+        document.getElementById('critical-card').className = document.getElementById('critical-card').className.replace('border-primary', 'border-error');
+    } else {
+        document.getElementById('critical-name').textContent = 'All Clear';
+        document.getElementById('critical-desc').textContent = 'No critical incidents detected. All suppliers within tolerance.';
+        document.getElementById('critical-card').className = document.getElementById('critical-card').className.replace('border-error', 'border-primary');
+    }
+
+    // ALL Suppliers Table
+    document.getElementById('supplier-table').innerHTML = all.map((s, i) => {
+        const bc = s.severity === 'HIGH' ? 'bg-error' : s.severity === 'MEDIUM' ? 'bg-tertiary' : 'bg-primary';
+        const tc = s.severity === 'HIGH' ? 'text-error' : s.severity === 'MEDIUM' ? 'text-tertiary' : 'text-primary';
+        return `<tr class="${i < all.length - 1 ? 'border-b border-outline-variant' : ''} hover:bg-surface-container-high transition-colors fade-in">
+            <td class="px-6 py-4 font-semibold">${s.supplier_name}<div class="text-[10px] text-on-surface-variant font-code-md">${s.supplier_id}</div></td>
+            <td class="px-6 py-4 text-on-surface-variant">${s.product || '—'}</td>
+            <td class="px-6 py-4"><div class="flex items-center gap-2"><div class="flex-1 h-1.5 bg-surface-container rounded-full overflow-hidden"><div class="h-full ${s.quality_score >= 85 ? 'bg-primary' : 'bg-error'}" style="width:${s.quality_score}%"></div></div><span class="${s.quality_score >= 85 ? 'text-primary' : 'text-error'} font-bold text-sm">${s.quality_score}%</span></div></td>
+            <td class="px-6 py-4"><div class="flex items-center gap-2"><div class="flex-1 h-1.5 bg-surface-container rounded-full overflow-hidden"><div class="h-full ${bc}" style="width:${s.on_time_rate}%"></div></div><span class="${tc} font-bold text-sm">${s.on_time_rate}%</span></div></td>
+            <td class="px-6 py-4">${badge(s.severity)}</td>
+            <td class="px-6 py-4"><span class="font-code-md text-code-md text-on-surface-variant">${actionLabel(s.action)}</span></td>
+            <td class="px-6 py-4 text-right font-code-md ${tc}">${fmt(s.estimated_impact_inr)}</td>
+        </tr>`;
+    }).join('');
+
+    document.getElementById('table-ts').textContent = `Live · updated ${new Date().toLocaleTimeString()} · ${d.supplier_count} suppliers`;
+    document.getElementById('last-updated').textContent = `Last run: ${d.timestamp}`;
+}
+
+
+function renderRiskMonitor(d) {
+    const el = document.getElementById('risk-cards');
+    const all = d.suppliers;
+
+    el.innerHTML = all.map(s => {
+        const sc = { HIGH:'#ffb4ab', MEDIUM:'#ffb3ad', LOW:'#4edea3', HEALTHY:'#4edea3' }[s.severity] || '#4edea3';
+        const issues = (s.issues || []).map(i => `<li class="text-sm text-on-surface-variant">• ${i}</li>`).join('');
+        const stockBar = s.current_stock != null && s.safety_stock != null
+            ? `<div class="mt-3"><div class="flex justify-between text-[10px] text-on-surface-variant mb-1"><span>Stock: ${s.current_stock}</span><span>Safety: ${s.safety_stock}</span></div>
+               <div class="h-2 bg-surface-container rounded-full overflow-hidden"><div class="h-full ${s.current_stock < s.safety_stock ? 'bg-error' : 'bg-primary'}" style="width:${Math.min(100, (s.current_stock / s.safety_stock) * 100)}%"></div></div></div>` : '';
+        
+        return `<div class="glass-card rounded-xl p-5 fade-in" style="border-left:4px solid ${sc}">
+            <div class="flex justify-between items-start mb-3">
+                <div>
+                    <div class="font-semibold text-on-surface text-lg">${s.supplier_name}</div>
+                    <div class="font-code-md text-[11px] text-on-surface-variant">${s.supplier_id} · ${s.product || 'General'}</div>
+                </div>
+                <div class="flex items-center gap-2">${badge(s.severity)}</div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3">
+                <div><div class="text-[10px] text-on-surface-variant uppercase">Quality</div><div class="font-bold ${s.quality_score >= 85 ? 'text-primary' : 'text-error'}">${s.quality_score}%</div></div>
+                <div><div class="text-[10px] text-on-surface-variant uppercase">On-Time</div><div class="font-bold ${s.on_time_rate >= 90 ? 'text-primary' : 'text-error'}">${s.on_time_rate}%</div></div>
+                <div><div class="text-[10px] text-on-surface-variant uppercase">Max Delay</div><div class="font-bold text-on-surface">${s.max_delay_days || 0}d</div></div>
+                <div><div class="text-[10px] text-on-surface-variant uppercase">Impact</div><div class="font-bold" style="color:${sc}">${fmt(s.estimated_impact_inr)}</div></div>
+            </div>
+            ${stockBar}
+            ${issues ? `<div class="mt-3 border-t border-outline-variant pt-3"><div class="text-[10px] text-on-surface-variant uppercase mb-1">Issues Detected</div><ul>${issues}</ul></div>` : ''}
+            ${s.decision_explanation ? `<div class="mt-3 p-3 bg-surface-dim rounded border border-outline-variant"><div class="text-[10px] text-on-surface-variant uppercase mb-1">Decision</div><p class="text-sm text-on-surface">${s.decision_explanation}</p></div>` : ''}
+            ${s.backup_supplier ? `<div class="mt-2 text-sm text-on-surface-variant">↳ Backup: <span class="text-primary font-semibold">${s.backup_supplier}</span> (score ${s.backup_score})</div>` : ''}
+        </div>`;
+    }).join('');
+}
+
+
+function renderReasoningStudio(d) {
+    const el = document.getElementById('reasoning-content');
+    const flagged = d.suppliers.filter(s => s.severity !== 'HEALTHY' && s.reasoning_chain);
+
+    if (!flagged.length) {
+        el.innerHTML = `<div class="glass-card p-6 rounded-xl text-center text-on-surface-variant">No reasoning chains to display. All suppliers are healthy.</div>`;
+        return;
+    }
+
+    el.innerHTML = flagged.map(s => {
+        const sc = { HIGH:'#ffb4ab', MEDIUM:'#ffb3ad', LOW:'#4edea3' }[s.severity] || '#4edea3';
+        const steps = (s.reasoning_chain || []).map((step, i) => {
+            const clean = step.replace(/^->\s*/, '');
+            const isResult = step.startsWith('->');
+            return `<div class="flex items-start gap-3 fade-in" style="animation-delay:${i * 0.1}s">
+                <div class="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-[11px] font-bold" style="background:${sc}22;color:${sc}">S${i + 1}</div>
+                <div class="flex-1 p-3 bg-surface-container-low rounded-lg border border-outline-variant ${isResult ? 'border-l-2' : ''}" ${isResult ? `style="border-left-color:${sc}"` : ''}>
+                    <p class="font-code-md text-code-md text-on-surface">${clean}</p>
+                </div>
+            </div>`;
+        }).join('');
+
+        const llm = s.llm_explanation
+            ? `<div class="mt-4 p-4 bg-[#020617] rounded-lg border border-outline-variant">
+                <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined text-primary text-sm">smart_toy</span><span class="text-primary text-[10px] uppercase font-bold">AI Explanation</span></div>
+                <p class="font-body-md text-body-md text-on-surface">${s.llm_explanation}</p></div>` : '';
+
+        return `<div class="glass-card rounded-xl p-6 fade-in" style="border-left:4px solid ${sc}">
+            <div class="flex justify-between items-center mb-4">
+                <div><span class="font-semibold text-on-surface text-lg">${s.supplier_name}</span> <span class="text-on-surface-variant text-sm">— ${s.product || 'General'}</span></div>
+                ${badge(s.severity)}
+            </div>
+            <div class="text-[10px] text-on-surface-variant uppercase mb-3 tracking-wider">Agent Reasoning Chain</div>
+            <div class="space-y-2">${steps}</div>
+            ${llm}
+        </div>`;
+    }).join('');
+}
+
+
+function renderProcurementHub(d) {
+    const el = document.getElementById('procurement-content');
+    const withPR = d.suppliers.filter(s => s.purchase_request);
+    const withoutPR = d.suppliers.filter(s => !s.purchase_request && s.severity !== 'HEALTHY');
+
+    let html = '';
+
+    // Purchase Requests Table
+    if (withPR.length) {
+        html += `<div class="glass-card rounded-xl overflow-hidden">
+        <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+            <h3 class="font-label-md text-label-md text-on-surface uppercase tracking-widest">Purchase Requests</h3>
+            <span class="text-[11px] text-on-surface-variant">${withPR.length} request(s)</span>
+        </div>
+        <table class="w-full text-left border-collapse">
+        <thead class="bg-surface-container text-on-surface-variant font-label-md text-label-md uppercase">
+        <tr><th class="px-6 py-3">PR ID</th><th class="px-6 py-3">Original Supplier</th><th class="px-6 py-3">Backup</th><th class="px-6 py-3">Severity</th><th class="px-6 py-3">Impact</th><th class="px-6 py-3 text-right">Status / Action</th></tr>
+        </thead><tbody class="text-body-md text-on-surface">`;
+
+        html += withPR.map(s => {
+            const pr = s.purchase_request;
+            const isPending = pr.status === 'PENDING_APPROVAL';
+            const statusHtml = isPending
+                ? `<button onclick="approvePR('${pr.pr_id}')" class="px-3 py-1.5 bg-primary text-on-primary font-label-md text-label-md rounded-lg hover:opacity-90 transition-opacity text-[11px]">✓ Approve</button>
+                   <span class="font-code-md text-[10px] text-tertiary ml-2">PENDING</span>`
+                : `<span class="px-2 py-1 rounded bg-primary/15 text-primary font-code-md text-[11px]">${pr.status}</span>`;
+            return `<tr class="border-b border-outline-variant hover:bg-surface-container-high transition-colors fade-in" id="pr-row-${pr.pr_id}">
+                <td class="px-6 py-4 font-code-md text-secondary font-bold">${pr.pr_id}</td>
+                <td class="px-6 py-4 font-semibold">${pr.original_supplier}</td>
+                <td class="px-6 py-4">${pr.backup_supplier || '—'}</td>
+                <td class="px-6 py-4">${badge(s.severity)}</td>
+                <td class="px-6 py-4 font-code-md">${fmt(pr.estimated_impact_inr)}</td>
+                <td class="px-6 py-4 text-right">${statusHtml}</td>
+            </tr>`;
+        }).join('');
+        html += '</tbody></table></div>';
+    } else {
+        html += `<div class="glass-card p-6 rounded-xl text-on-surface-variant text-center">No purchase requests in the queue.</div>`;
+    }
+
+    // Monitored suppliers (flagged but no PR)
+    if (withoutPR.length) {
+        html += `<div class="glass-card rounded-xl p-5 mt-4">
+        <h3 class="font-label-md text-label-md text-on-surface uppercase tracking-widest mb-4">Monitored Suppliers (No PR Required)</h3>`;
+        html += withoutPR.map(s => `<div class="flex justify-between items-center py-3 border-b border-outline-variant last:border-0">
+            <div><span class="font-semibold text-on-surface">${s.supplier_name}</span> <span class="text-on-surface-variant text-sm">${s.product || ''}</span></div>
+            <div class="flex items-center gap-3">${badge(s.severity)}<span class="font-code-md text-code-md text-on-surface-variant">${actionLabel(s.action)}</span></div>
+        </div>`).join('');
+        html += '</div>';
+    }
+
+    el.innerHTML = html;
+}
+
+
+function renderTelemetryLogs(d) {
+    const el = document.getElementById('telemetry-content');
+    let html = '';
+
+    // Delivery Timeline
+    html += `<div class="glass-card rounded-xl overflow-hidden">
+    <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
+        <h3 class="font-label-md text-label-md text-on-surface uppercase tracking-widest">Delivery Timeline</h3>
+    </div>
+    <table class="w-full text-left border-collapse">
+    <thead class="bg-surface-container text-on-surface-variant font-label-md text-label-md uppercase">
+    <tr><th class="px-6 py-3">Order</th><th class="px-6 py-3">Supplier</th><th class="px-6 py-3">Expected</th><th class="px-6 py-3">Actual</th><th class="px-6 py-3">Status</th><th class="px-6 py-3 text-right">Delay</th></tr>
+    </thead><tbody class="text-body-md text-on-surface">`;
+
+    html += (d.deliveries || []).map(del => {
+        const delay = del.delay_days || 0;
+        const dc = delay > 3 ? 'text-error' : delay > 0 ? 'text-tertiary' : 'text-primary';
+        const statusColor = del.status === 'DELIVERED' ? 'bg-primary/15 text-primary' : 'bg-tertiary/15 text-tertiary';
+        return `<tr class="border-b border-outline-variant hover:bg-surface-container-high transition-colors fade-in">
+            <td class="px-6 py-3 font-code-md text-secondary">${del.order_id}</td>
+            <td class="px-6 py-3 font-semibold">${del.supplier_name}</td>
+            <td class="px-6 py-3 font-code-md text-on-surface-variant">${del.expected_date ? del.expected_date.split('T')[0] : '—'}</td>
+            <td class="px-6 py-3 font-code-md text-on-surface-variant">${del.actual_date ? del.actual_date.split('T')[0] : '<span class="text-tertiary">Pending</span>'}</td>
+            <td class="px-6 py-3"><span class="px-2 py-0.5 rounded text-[11px] font-bold ${statusColor}">${del.status}</span></td>
+            <td class="px-6 py-3 text-right font-code-md ${dc} font-bold">${delay > 0 ? '+' + delay + 'd' : del.actual_date ? 'On Time' : '—'}</td>
+        </tr>`;
+    }).join('');
+    html += '</tbody></table></div>';
+
+    // Purchase Order History
+    html += `<div class="glass-card rounded-xl overflow-hidden">
+    <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
+        <h3 class="font-label-md text-label-md text-on-surface uppercase tracking-widest">Purchase Order History</h3>
+    </div>
+    <table class="w-full text-left border-collapse">
+    <thead class="bg-surface-container text-on-surface-variant font-label-md text-label-md uppercase">
+    <tr><th class="px-6 py-3">PO ID</th><th class="px-6 py-3">Supplier</th><th class="px-6 py-3">Quantity</th><th class="px-6 py-3">Amount</th><th class="px-6 py-3 text-right">Order Date</th></tr>
+    </thead><tbody class="text-body-md text-on-surface">`;
+
+    html += (d.purchase_orders || []).map(po => `<tr class="border-b border-outline-variant hover:bg-surface-container-high transition-colors fade-in">
+        <td class="px-6 py-3 font-code-md text-secondary">${po.order_id}</td>
+        <td class="px-6 py-3 font-semibold">${po.supplier_name}</td>
+        <td class="px-6 py-3 font-code-md">${po.quantity.toLocaleString()}</td>
+        <td class="px-6 py-3 font-code-md text-primary">${fmt(po.amount)}</td>
+        <td class="px-6 py-3 text-right font-code-md text-on-surface-variant">${po.order_date ? po.order_date.split('T')[0] : '—'}</td>
+    </tr>`).join('');
+    html += '</tbody></table></div>';
+
+    // Pipeline Log
+    html += `<div class="glass-card rounded-xl p-5">
+    <h3 class="font-label-md text-label-md text-on-surface uppercase tracking-widest mb-4">Pipeline Execution Log</h3>
+    <div class="bg-[#020617] rounded-lg p-4 border border-outline-variant font-code-md text-code-md text-[#10B981]/80 space-y-1 max-h-[300px] overflow-y-auto custom-scrollbar">
+        <p>> Pipeline executed at ${d.timestamp}</p>
+        <p>> Monitoring ${d.supplier_count} suppliers</p>
+        <p>> Agent 1 — Vendor Monitor: ${d.results.length} flagged supplier(s)</p>
+        <p>> Agent 2 — Risk Analyzer: ${d.summary.high} HIGH, ${d.summary.medium} MEDIUM, ${d.summary.low} LOW</p>
+        <p>> Agent 3 — Decision Agent: ${d.results.filter(r => r.action !== 'MONITOR_ONLY').length} action(s) triggered</p>
+        <p>> Agent 4 — Procurement Agent: ${d.summary.pr_count} purchase request(s) created</p>
+        <p>> Total financial exposure: ${fmt(d.summary.total_impact)}</p>
+        <p>> Average SLA across all suppliers: ${d.summary.avg_on_time}%</p>
+        <p>> Average quality across all suppliers: ${d.summary.avg_quality}%</p>
+        ${d.suppliers.filter(s => s.severity === 'HIGH').map(s => `<p class="text-error/80">> ⚠ CRITICAL: ${s.supplier_name} — ${(s.issues||[]).join(', ')}</p>`).join('')}
+        <p>> Pipeline complete. All agents returned successfully.</p>
+    </div></div>`;
+
+    el.innerHTML = html;
+}
+
+
+function renderPage(page, d) {
+    switch (page) {
+        case 'dashboard': renderDashboard(d); break;
+        case 'risk-monitor': renderRiskMonitor(d); break;
+        case 'reasoning-studio': renderReasoningStudio(d); break;
+        case 'procurement-hub': renderProcurementHub(d); break;
+        case 'telemetry-logs': renderTelemetryLogs(d); break;
+    }
+}
+
+function renderConsoleLog(d) {
+    const c = document.getElementById('ai-console');
+    c.innerHTML = '';
+    log(`Pipeline executed at ${d.timestamp}`);
+    log(`Monitoring ${d.supplier_count} suppliers`);
+    log(`Agent 1: ${d.results.length} flagged`);
+    log(`Agent 2: ${d.summary.high} HIGH, ${d.summary.medium} MED, ${d.summary.low} LOW`);
+    log(`Agent 3: ${d.results.filter(r => r.action !== 'MONITOR_ONLY').length} actions`);
+    log(`Agent 4: ${d.summary.pr_count} PRs created`);
+    d.suppliers.filter(s => s.severity === 'HIGH').forEach(s => log(`⚠ CRITICAL: ${s.supplier_name}`));
+    log('Dashboard updated with live data.');
+}
+
+// ── Data Fetch ───────────────────────────────────────────────────
+
+async function fetchData(forceRun = false) {
+    const url = forceRun ? `${API}/api/pipeline/run` : `${API}/api/pipeline`;
+    const opts = forceRun ? { method: 'POST' } : {};
+    const res = await fetch(url, opts);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const d = await res.json();
+    cachedData = d;
+
+    document.getElementById('status-dot').className = 'w-2 h-2 rounded-full bg-primary animate-pulse';
+    document.getElementById('status-text').textContent = '🟢 Agents Active | Backend Connected';
+    document.getElementById('sidebar-status').textContent = 'Backend Connected ✓';
+
+    // Render the active page
+    const activePage = document.querySelector('.page-section.active').id.replace('page-', '');
+    renderPage(activePage, d);
+    renderConsoleLog(d);
+
+    return d;
+}
+
+async function runPipeline() {
+    if (isLoading) return;
+    isLoading = true;
+    document.getElementById('run-spinner').classList.remove('hidden');
+    document.getElementById('run-text').textContent = 'Running...';
+    log('Re-running full 4-agent pipeline...');
+    try {
+        await fetchData(true);
+        toast('Pipeline executed successfully!');
+    } catch (e) {
+        toast('Pipeline run failed: ' + e.message, 'error');
+        log('ERROR: ' + e.message);
+    } finally {
+        isLoading = false;
+        document.getElementById('run-spinner').classList.add('hidden');
+        document.getElementById('run-text').textContent = '▶ Run Pipeline';
+    }
+}
+
+function exportReport() {
+    toast('Generating CSV report...', 'info');
+    window.location.href = `${API}/api/export`;
+}
+
+async function approvePR(prId) {
+    try {
+        const res = await fetch(`${API}/api/approve/${prId}`, { method: 'POST' });
+        const data = await res.json();
+        if (data.status === 'ok') {
+            toast(`${prId} approved successfully!`);
+            // Refresh data to show updated status
+            await fetchData(false);
+        } else {
+            toast(data.message || 'Approval failed', 'error');
+        }
+    } catch (e) {
+        toast('Approval failed: ' + e.message, 'error');
+    }
+}
+
+// ── Init ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    fetchData(false).catch(err => {
+        document.getElementById('status-dot').className = 'w-2 h-2 rounded-full bg-error';
+        document.getElementById('status-text').textContent = '🔴 Disconnected — Start api_server.py';
+        document.getElementById('sidebar-status').textContent = 'Disconnected ✗';
+        log('ERROR: ' + err.message);
+        setTimeout(() => fetchData(false).catch(() => {}), 3000);
+    });
+    setInterval(() => { if (!isLoading) fetchData(false).catch(() => {}); }, 30000);
+});
+</script>
+</body></html>
