@@ -1,8 +1,4 @@
-## 🎥 Demo Video
 
-Watch the complete demo here:
-
-[📹 VendorGuard AI Demo](./Screen%20Recording%202026-08-01%20185516.mp4)
 
 
 
