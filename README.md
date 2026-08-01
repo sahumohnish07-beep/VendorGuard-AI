@@ -24,6 +24,22 @@ It features a **Streamlit-based control room dashboard** that visualises the ful
 
 ---
 
+## 📑 Table of Contents
+
+- [Overview](#-overview)
+- [Architecture](#️-architecture)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [Dashboard Features](#️-dashboard-features)
+- [Data Schema](#-data-schema)
+- [Configuration & Tuning](#️-configuration--tuning)
+- [How the Pipeline Works](#-how-the-pipeline-works)
+- [Security Notes](#️-security-notes)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
+
 ## 🏗️ Architecture
 
 The system is built as a **4-agent sequential pipeline**, where each agent consumes the output of the previous one:
@@ -91,9 +107,21 @@ git clone <your-repo-url>
 cd VENDOR
 ```
 
-### 2. Install dependencies
+### 2. Setup Virtual Environment & Install Dependencies
+
+It is highly recommended to use a Python virtual environment to keep dependencies isolated:
 
 ```bash
+# Create a virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+venv\Scripts\activate
+
+# Install the required packages
 pip install -r requirements.txt
 ```
 
